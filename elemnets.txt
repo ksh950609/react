@@ -1,0 +1,35 @@
+elemnets
+
+어떤 물체를 구성하는 것 
+
+elements are the smallest building blocks of React apps 
+
+리액트 앱을 구성하는 가장 작은 블록들
+
+ 화면에 나타나느 내용을 기술하는 자바스크립트 객체 
+
+처음에는 descriptor 
+
+화면에서 보이는 것을 기술하는 것 
+
+자바스크립트 객체 형태로 존재하고 있다 
+
+
+ex 
+function Button(props){
+return(
+<button className ={`bg=${props.color}`}>
+<b>
+	{props.children}
+</b>
+)
+}
+
+function ConfirmDialog(props){
+return (
+<div>
+<p>내용을 확인하셨으면 확인 버튼을 눌러주세요.</p>
+<button color='green'></button>
+</div>
+)
+}
