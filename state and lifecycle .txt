@@ -1,0 +1,43 @@
+state and lifecycle 
+
+state 상태 
+
+Component의 데이터의 변경가능한 것 관리 
+
+개발자가 정의 
+
+렌더링이나 데이터 흐름에 사용되는 값만 state에 포함되어야 한다.
+
+state는 javascript의 객체이다
+
+class LikeButton extends React.Component {
+	constructor(props) {
+		super(props);
+	
+	this.state = {
+		liked: false  			현재 컴포너트를 관리하는 것 
+		};
+	}
+}
+
+직접 수정 할 수 없다. (하면 안돤다.)
+
+state를 직접 수정 
+this.state = {
+	name : 'Kim'
+}
+
+setState 함수를 통해 수정 (정상적인 방법)
+
+this.setState({
+	name : 'kim'
+});
+
+
+lifeCycle 생명주기 
+
+리액트 컴포넌트의 생명주기
+
+
+
+컴포넌트가 계속 존재하는 것이 아닌 생명주기에 따라서 수정되고 사라진다

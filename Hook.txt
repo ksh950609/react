@@ -1,0 +1,200 @@
+Hook
+
+function 컴포넌트 
+
+ state 사용 불가 
+ Lifecycle에 따른 기능 구현 불가
+
+Hook -> 클랙스컴포넌트처럼 쓸 수 있음 
+
+Class Component 
+
+ 생성자에서 state를 정의 
+setState() 함수를 통해 state 업데이트 
+Lifecycle methods 제공
+
+
+
+대표적
+
+useState() 
+
+state를 사용하기 위한 것 
+
+
+function Counter(props) {
+ var count = 0;
+
+return (
+	<div>
+		<p>총 {count}번 클릭했습니다.<p>
+		<button onClikc = {() => count++}>클릭 </button>
+	</div>
+);
+}	
+
+
+이렇게 하면 재 렌더링이 이뤄지지 않아서 count는 증가해도 화면에 표시되지 않는다
+
+-> useState를 사용한다.
+
+const [변수명, set함수명] = useState(0);
+
+
+--- 
+function Counter(props) {
+	const [count, setCount] = useState(0);
+
+return (
+	<div>
+		<p>총 {count}번 클릭했습니다.<p>
+		<button onClikc = {() => setCount(count +1)}>클릭 </button>
+	</div>
+);
+}
+
+
+useEffect 
+
+side effect 부작용을 사용하기 위한 것 
+
+-> 리액트에서는 효과,영향
+
+다른 컴포넌트에 영행을 미칠 수 있으며, 렌더링 중에는 작업이 완료될 수 없기 때문, 
+
+리액트의 함수 컴포넌트에서 side effect를 실행할 수 있게 Hook 
+
+-> useEfeect(이펙트 함수, 의존성 배열);
+
+mount, unmount 시에 단 한 번씩만 실행 됨 
+
+의존성 배열은 생략 가능 
+
+function Counter(props) {
+	const [count, setCount] = useState(0);
+
+	useEffect(() => { 
+		// 창에 나오는 제목
+		// 브라우저 API를 사용해서 document의 title을 업데이트 합니다.
+		document.title = ' You Clicked ${count} times'
+	});
+
+return (
+	<div>
+		<p>총 {count}번 클릭했습니다.<p>
+		<button onClikc = {() => setCount(count +1)}>클릭 </button>
+	</div>
+);
+}
+
+
+
+컴포넌트가 마운트 된 이후 
+의존성 배열에 있는 변수들 중 하나라도 값이 변경되었을 때 실행함
+의존성 배열에 빈 배열 [] 을 넣으면 마운트 언마운트시에 단 한번씩만 실행함 
+의존성 배열 생략 시 컴포넌트 업데이트 시마다 실행됨 
+
+
+useMemo 
+
+Memoized value 를 리턴하는 HOOk 
+
+메모이제이션 
+-> 이전 결과를 받아오는 것 
+
+자원 절약 
+
+변수가 변했을 때만 
+변하지 않았으면 기존
+
+
+const memoizedValue = useMemo(
+	() => {
+		//연산량이 높은 작업을 수행하여 결과를 반환
+		return computeExpensiveValue(의존성 변수1, 의존성 변수2);
+	}, [의존성 병수1, 의존성 변수2]
+);
+
+의존성 배열을 넣지 않을 경우, 매 렌더링마다 함수가 실행됨 
+
+const memoizedValue = useMemo(
+	() => computeExpensiveValue(a,b)
+);
+
+빈 배열인 경우 컴포넌트 마운트 시에만 호출된다.
+const memoizedValue = useMemo(
+return () => {
+	computeExpensiveValue(a,b)
+},[] 
+);
+
+
+useCallBack 
+메모와 훅과 유사하지만 값이 아닌 함수를 반환하는 것이다.
+
+const memoizedCallBack = useCallBack(
+return () => {
+	doSomething(의존성 변수1, 의존성 변수2)
+	}, [의존성 병수1, 의존성 변수2]
+);
+
+동일한 역할을 하는 코드 
+
+useCallBack(함수, 의존성 배열);
+
+useMemo(() => 함수, 의존성 배열); 
+
+
+
+function Counter(props) {
+	const [count, setCount] = useState(0);
+		// 재렌더링 될 때마다 매번 함수가 새로 정의됨 
+	const handleClick = (event) => {
+		클릭 이벤트 처리
+	};
+return (
+	<div>
+		<button onClikc = {() => setCount(count +1)}>
+			{count}
+		 </button>
+		<childComponent handleClikc={handleClikc}/>
+	</div>
+);
+}
+
+useRef 
+레퍼런스를 사용하기 위한 훅 
+
+특정 컴포넌트에 접슥ㄴ할 수있게 하는 훅 
+
+refObject.current	현재 참조하고 있는 Element를 의미한다.
+
+const refContainer = useRef(초깃값);
+
+
+function TextInputWithFocusButton(props) {
+	const inputElem = useRef(null);
+
+	const onButtonClick = () => {
+		inputElem.current.focus();
+	};
+	
+	reuturn (
+		<>
+			<input ref = {inputElem} type = "text"/>
+			<button onClick={onButtonClick}>
+				Focus the input
+			</button>
+		);
+}
+
+
+내부의 데이터가 변경되었을 떄 별도로 알려주지 않음 
+
+CAllback ref 
+자식 컴포넌트가 변경되었을 떄 알려줌 
+const measuredRef = useCallback(node => {
+	if(node !== null) {	
+		setHeight(node.getBoundingClientReact().height);
+	}
+}, []);
