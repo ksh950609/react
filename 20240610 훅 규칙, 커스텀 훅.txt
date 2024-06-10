@@ -1,0 +1,60 @@
+hook은 무조건 최상위 레벨에서만 호출
+
+컴포넌트가 렌더링 될 떄마다 매번 같은 순서로 호출되어야 한다.
+
+잘못된 훅 사용법
+funtion MyComponent(props) {
+	const [name, setName] = useState('tkdgns');
+
+	if(name !== '') {
+		useEffect(() => }{
+			...
+		});
+	}
+...
+
+}
+
+리앿트 함수 컴포넌트에서만 훅을 호출해야한다.
+
+
+eslint-plugin-react-hooks --> 도움되는 패키지 
+
+규칙에 맞는지 아닌지 확인해준다.
+
+const memoizedValued = useMemo(
+	() => {
+		// 연산량이 높은 작업을 수행하여 결과를 반환 
+		return computeExpensiveValue(의존성 변수1 ,2 );
+	},[a,b
+
+]
+
+
+custom hook 만들기 
+
+반복되는 것을 하나로 만들기 
+
+1.  중복되는 구문 훅으로 만든다 
+
+이름이 use로 시작하고 내부에서 다른 훅을 호출하는 하나의 자바스크립 함수
+
+function UserStatus(props) {
+const isOline = useUserStatus(props.user.id);
+
+if( isOline === null) {
+	return '대기중';
+}
+return isOnline ? '온라인' : '오프라인';
+
+}
+
+function UserListItem(props) {
+	const isOnline - useUserStatus(props.user.id);
+
+return (
+	<li style = {{ color : isOnline ? 'green' : 'black'>
+		{props.user.name}
+	</li>
+
+커스텀에서는 use로 시작해야한다.
