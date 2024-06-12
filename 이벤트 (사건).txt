@@ -1,0 +1,80 @@
+이벤트 (사건)
+
+사용자가 버튼을 클릭하는 것 처럼
+
+<button onClick = "activate()">
+	 Activate
+</button>
+
+
+EventHandler
+이벤트를 처리하는 역할 
+
+Event Listener
+이벤트 
+
+class Toggle extends React.component {
+	constructor(props) {
+		super(props);		
+			this.state = { isToggleOn : true } ;
+
+		//콜백에서 'this'를 사용하기 위해서는 바인딩을 필수적으로 해줘야한다.
+			this.handleClick = this.handleClikc.bind(this);
+}
+	handleClick() {
+		this.setState(prevState => ({
+			isToggleOn : !prevState.isToggleon
+})
+);
+}
+render() {
+	return (
+		<button onClick={this.handleClick}>
+			{this.state.isToggleOn ? 'ON ' : 'OFF'
+		<button>
+);
+}
+}
+
+
+// 이렇개 하면 this가 바인딩 된다
+
+onClick ={() => this.handleClick()}
+
+
+
+	function handleClick() {
+	setIsToggleOn((isToggleOn) => !isToggleOn);
+})
+
+const handleClick = () => {
+	setIsToggleOn((isToggleON) => !isToggleON);
+}
+
+	return (
+		<button onClick={this.handleClick}>
+			{this.state.isToggleOn ? 'ON ' : 'OFF'
+		<button>
+);
+
+
+
+arguments 전달하기 
+
+함수에 주장할 데이터
+
+이벤트핸들러에 전달할 데이터 
+클래스
+		<button onClick={(event) => this.deleteItem(id, event)}>삭제하기</button>
+
+		<button onClick={(this.deleteItem.bind(this, id)}>삭제하기</button>
+
+함수
+function MyButton(props) {
+	const handleDelte = (id,event) => {
+		console.log(id, event.target);
+	};
+	return (
+		<button onClick={(event) => this.deleteItem(1, event)}>삭제하기</button>
+	);
+}
